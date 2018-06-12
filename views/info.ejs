@@ -1,0 +1,19 @@
+<% include ./partials/header %>
+
+  <div class="card-columns">
+    <div class="card">
+     <div class="card-body">
+       <h3 class='card-title'><%= Cars.carName %></h3>
+       <p class='card-text'>Rs.<%= Cars.carPrice %></p>
+       <img src="<%= Cars.img %>" class='card-img' alt="carsImage">
+       <p class='card-text'><%= Cars.info %></p>
+     </div>
+
+     <a href="/<%= Cars._id %>/edit"><button type="button" name="Edit" class='btn btn-primary'>Edit</button></a>
+    <a href="/<%= Cars._id %>/delete"><button type="button" name="Delete" class='btn btn-danger'>Delete</button></a>
+    <a href="/"><button type="button" name="Back" class='btn btn-xs btn-info'>Go back</button></a>
+
+    </div>
+  </div>
+
+<% include ./partials/footer %>

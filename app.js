@@ -9,7 +9,7 @@ const express        = require('express'),
       validator      = require('validator');
 
 mongoose.connect('mongodb://ChodaLight:14345612am@ds255930.mlab.com:55930/cars');
-
+// mongoose.connect('mongodb://localhost/cars');
 const routeHome   = require('./routes/index');
 const loginRoute  = require('./routes/login');
 
@@ -32,8 +32,8 @@ app.use('/login', loginRoute);
 
 
 
+// process.env.PORT, process.env.IP
 
-
-app.listen(process.env.PORT, process.env.IP, function (req, res) {
+app.listen(2018, function (req, res) {
   console.log('Server is started');
 });

@@ -69,12 +69,12 @@ router.put('/:id', function (req, res) {
        carPrice  = req.body.carPrice,
        img       = req.body.img,
        info      = req.body.info;
-const  updateCar = {
+   const  updateCar = {
     carName: carName,
     carPrice: carPrice,
     img: img,
     info: info,
-  };
+   };
     Cars.findByIdAndUpdate(req.params.id, updateCar, function (err, carUpdated) {
       if (err) {
         console.log(err);

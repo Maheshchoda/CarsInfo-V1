@@ -32,8 +32,8 @@ app.use('/login', loginRoute);
 
 
 
-// process.env.PORT, process.env.IP
 
-app.listen(2018, function (req, res) {
+
+app.listen(process.env.PORT, process.env.IP, function (req, res) {
   console.log('Server is started');
 });

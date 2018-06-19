@@ -1,22 +1,34 @@
-const express = require('express');
-const router  = express.Router();
-const Cars    = require('../models/cars');
+const express   = require('express');
+const router    = express.Router();
+const Cars      = require('../models/cars');
+const User     = require('../models/user');
+const authCheck = require('../config/authCheck');
+
+
+//Middleware function to check whether user is loged in or not
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/user/login');
+};
 
 router.get('/', function (req, res) {
   Cars.find({ }, function (err, allCars) {
     if (err) {
       console.log(err);
     } else {
-      res.render('home', {
+      res.render('Cars/home', {
         Cars: allCars,
+        User: req.user,
       });
     }
   });
 });
 
 
-router.get('/new', function (req, res) {
-  res.render('carform');
+router.get('/new', isLoggedIn, authCheck, function (req, res) {
+  res.render('Cars/carform');
 });
 
 router.post('/', function (req, res) {
@@ -44,21 +56,21 @@ router.get('/:id', function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render('info', {
+      res.render('Cars/info', {
         Cars: foundCar,
       });
     }
   });
 });
 
-router.get('/:id/edit', function (req, res) {
+router.get('/:id/edit', isLoggedIn, authCheck, function (req, res) {
   Cars.findById(req.params.id, function (err, update) {
     if (err) {
       console.log(err);
       res.send('There is something wrong we will updtae it soon');
     }else {
       console.log(update);
-      res.render('editCar', { Cars: update });
+      res.render('Cars/editCar', { Cars: update });
     }
   });
 
@@ -85,7 +97,7 @@ router.put('/:id', function (req, res) {
     });
   });
 
-router.get('/:id/delete', function (req, res) {
+router.get('/:id/delete', isLoggedIn, authCheck, function (req, res) {
   Cars.findByIdAndDelete(req.params.id, function (err) {
     if (err) {
       console.log(err);
